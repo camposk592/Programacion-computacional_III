@@ -24,15 +24,15 @@
                         <form id="frmAlumnos" class="row g-3">
                             <div class="col-auto">
                                 <label for="txtCodigoAlumno" class="visually-hidden">Codigo</label>
-                                <input placeholder="Codigo" type="text" class="form-control" id="txtCodigoAlumno">
+                                <input pattern="^([SM|US]){2}([IS|LI|LA]){2}[0-9]{6}" required placeholder="Codigo" type="text" class="form-control" id="txtCodigoAlumno">
                             </div>
                             <div class="col-auto">
                                 <label for="txtNombreAlumno" class="visually-hidden">Nombre</label>
-                                <input type="text" class="form-control" id="txtNombreAlumno" placeholder="Nombre">
+                                <input pattern="[A-zÑñáéíóú ]{6,75}" type="text" class="form-control" id="txtNombreAlumno" placeholder="Nombre">
                             </div>
                             <div class="col-auto">
                                 <label for="txtTelefonoAlumno" class="visually-hidden">Telefono</label>
-                                <input type="text" class="form-control" id="txtTelefonoAlumno" placeholder="Telefono">
+                                <input pattern="[0-9]{4}[-| ][0-9]{4}" required type="text" class="form-control" id="txtTelefonoAlumno" placeholder="Telefono">
                             </div>
                             <div class="col-auto">
                                 <button type="submit" class="btn btn-secondary mb-3">Registrar Alumno</button>
@@ -44,8 +44,34 @@
         </div>
     </div>
     
-
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+    crossorigin="anonymous"></script>
     <!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(e=>{
+            $("#frmAlumnos").submit(e=>{
+                e.preventDefault();
+
+                let codigo = $("#txtCodigoAlumno").val(),
+                    nombre = $("#txtNombreAlumno").val(),
+                    telefono = $("#txtTelefonoAlumno").val(),
+                    datos = {codigo,nombre,telefono};
+                $.post("http://localhost:3000",JSON.stringify(datos), 
+                (respuesta, status)=>{
+                    
+                }, "json");
+            });
+        });
+    </script>
 </body>
 </html>
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status
+Docs
