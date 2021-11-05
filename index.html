@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +21,7 @@
                 <div class="card text-white bg-dark mb-3">
                     <div class="card-header">REGISTRO DE ALUMNOS</div>
                     <div class="card-body">
-                        <form id="frmAlumnos" class="row g-3">
+                        <form id="frmAlumnos" class="row g-2">
                             <div class="col-auto">
                                 <label for="txtCodigoAlumno" class="visually-hidden">Codigo</label>
                                 <input pattern="^([SM|US]){2}([IS|LI|LA]){2}[0-9]{6}" required placeholder="Codigo" type="text" class="form-control" id="txtCodigoAlumno">
@@ -38,6 +38,9 @@
                                 <button type="submit" class="btn btn-secondary mb-3">Registrar Alumno</button>
                             </div>
                         </form>
+                        <div class="row g-2">
+                            <div id="msgAlumnos" class="alert alert-success d-none" role="alert"></div>
+                        </div>
                     </div>
                   </div>
             </div>
@@ -60,18 +63,25 @@
                     nombre = $("#txtNombreAlumno").val(),
                     telefono = $("#txtTelefonoAlumno").val(),
                     datos = {codigo,nombre,telefono};
-                $.post("http://localhost:3000",JSON.stringify(datos), 
-                (respuesta, status)=>{
-                    
+                $.post("http://localhost:3000/insertar",JSON.stringify(datos), (respuesta, status)=>{
+                    $("#msgAlumnos").toggleClass("d-none").text(respuesta.resp);
+
+                    if( respuesta.resp.indexOf("correctamente") >=0 ){
+                        $("#frmAlumnos input[type=text]").val('');
+                        $("#msgAlumnos")
+                            .removeClass("alert-danger")
+                            .addClass("alert-success");
+                    } else {
+                        $("#msgAlumnos")
+                            .removeClass("alert-success")
+                            .addClass("alert-danger");
+                    }
+                    setTimeout(()=>{
+                        $("#msgAlumnos").toggleClass("d-none");
+                    },5000);
                 }, "json");
             });
         });
     </script>
 </body>
 </html>
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
