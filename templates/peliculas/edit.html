@@ -1,1 +1,33 @@
-formulario para editar 
+Formulario para editar 
+{% for peliculas in peliculas  %}
+    
+
+<form method="post" action="/update" enctype="multipart/form-data">
+
+    <input type="text"value="{{peliculas[0]}}" name="txtIdPeliculas" id="txtIdPeliculas">
+    <br>
+
+    Nombre:
+    <input type="text" value="{{peliculas[1]}}" name="txtNombre" id="txtNombre">
+    <br>
+
+    Telefono:
+    <input type="text" value="{{peliculas[2]}}" name="txtTelefono" id="txtTelefono">
+    <br>
+
+    Pelicula:
+    <input type="text" value="{{peliculas[3]}}" name="txtpelicula" id="txtpelicula">
+    <br>
+
+    Estado:
+    <input type="text" value="{{peliculas[4]}}" name="txtEstado" id="txtEstado">
+    <br>
+
+    Foto:
+    {{peliculas[5]}}
+    <input type="file"  name="txtFoto" id="txtFoto">
+    <br>
+    <br>
+    <input type="submit" value="Agregar">
+</form>
+{% endfor %}
