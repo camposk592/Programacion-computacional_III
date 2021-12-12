@@ -1,33 +1,69 @@
+
+{% include 'header.html' %}
 Formulario para editar 
 {% for peliculas in peliculas  %}
     
 
 <form method="post" action="/update" enctype="multipart/form-data">
 
-    <input type="text"value="{{peliculas[0]}}" name="txtIdPeliculas" id="txtIdPeliculas">
-    <br>
 
-    Nombre:
-    <input type="text" value="{{peliculas[1]}}" name="txtNombre" id="txtNombre">
-    <br>
+    <div class="card">
+        <div class="card-header">
+            Editar
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Datos</h5>
+            <p class="card-text">
 
-    Telefono:
-    <input type="text" value="{{peliculas[2]}}" name="txtTelefono" id="txtTelefono">
-    <br>
 
-    Pelicula:
-    <input type="text" value="{{peliculas[3]}}" name="txtpelicula" id="txtpelicula">
-    <br>
+                <div class="form-group">
+                    <label for="txtNombre">Nombre:</label>
+                    <input id="txtNombre" value="{{peliculas[1]}}" class="form-control" type="text" name="txtNombre">
+                </div>
 
-    Estado:
-    <input type="text" value="{{peliculas[4]}}" name="txtEstado" id="txtEstado">
-    <br>
+                <div class="form-group">
+                    <label for="txtTelefono">Telefono:</label>
+                    <input id="txtTelefono" value="{{peliculas[2]}}" class="form-control" type="text" name="txtTelefono">
+                </div>
 
-    Foto:
-    {{peliculas[5]}}
-    <input type="file"  name="txtFoto" id="txtFoto">
-    <br>
-    <br>
-    <input type="submit" value="Agregar">
+                <div class="form-group">
+                    <label for="txtpelicula">Pelicula:</label>
+                    <input id="txtpelicula" value="{{peliculas[3]}}" class="form-control" type="text" name="txtpelicula">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtEstado">Estado:</label>
+                    <input id="txtEstado" value="{{peliculas[4]}}" class="form-control" type="text" name="txtEstado">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtFoto">Foto:</label>
+
+                    <img class="img-thumbnail" width="100" src="{{url_for('uploads',nombreFoto=peliculas[5])}}" alt="">
+
+
+                    <input id="txtFoto" class="form-control" type="file" name="txtFoto">
+                </div>
+
+                
+                <input type="hidden"value="{{peliculas[0]}}" name="txtIdPeliculas" id="txtIdPeliculas">
+                <br>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-success" value="Modificar">
+                    <a href="{{url_for('index')}}" class="btn btn-primary"> Regresar </a>
+                </div>
+
+            
+
+
+
+
+
+            </p>
+        </div>
+    </div>
+
 </form>
 {% endfor %}
+{% include 'footer.html' %}

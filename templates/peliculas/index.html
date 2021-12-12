@@ -1,13 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <title>Inicio</title>
-</head>
-<body>
-    
+
+    {% include 'header.html' %}
+
+
+    <br/>
+
+    <a href="{{url_for('create')}}" class="btn btn-success"> 
+
+        Ingresar Nuevo 
+
+    </a>
+
+    <br>
+    <br>
+
     <table class="table table-light">
         <thead class="thead-light">
             <tr>
@@ -26,14 +31,20 @@
 
             <tr>
                 <td>{{pelicula[0] }}</td>
-                <td>{{pelicula[5] }}</td>
+
+                <td>
+                    <img class="img-thumbnail" width="100" src="uploads/{{pelicula[5] }}" alt="">
+                    
+
+                </td>
+
                 <td>{{pelicula[1] }}</td>
                 <td>{{pelicula[2] }}</td>
                 <td>{{pelicula[3] }}</td>
                 <td>{{pelicula[4] }}</td>
-                <td><a href="/edit/{{pelicula[0] }}">Editar</a> |
+                <td><a class="btn btn-warning" href="/edit/{{pelicula[0] }}">Editar</a> |
                     
-                    <a href="/destroy/{{pelicula[0] }}">Eliminar</a>
+                    <a onclick="return confirm('Desea borrar el registro?')" class="btn btn-danger" href="/destroy/{{pelicula[0] }}">Eliminar</a>
                 </td>
             </tr>
                 
@@ -42,5 +53,4 @@
         </tbody>
     </table>
 
-</body>
-</html>
+{% include 'footer.html' %}

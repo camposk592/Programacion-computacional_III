@@ -1,11 +1,13 @@
 from flask import Flask
-from flask import render_template,request,redirect
+from flask import render_template,request,redirect,url_for, flash
 from flaskext.mysql import MySQL
+from flask import send_from_directory
 from datetime import datetime
 import os
 
 
 app = Flask(__name__)
+app.secret_key="Develoteca"
 
 mysql=MySQL()
 app.config['MYSQL_DATABASE_HOST']='localhost'
@@ -17,6 +19,11 @@ mysql.init_app(app)
 
 CARPETA = os.path.join('uploads')
 app.config['CARPETA'] = CARPETA
+
+@app.route('/uploads/<nombreFoto>')
+def uploads(nombreFoto):
+
+    return send_from_directory(app.config['CARPETA'], nombreFoto)
 
 
 @app.route("/")
@@ -113,7 +120,11 @@ def storage():
 
     _foto =request.files['txtFoto']
 
-    'concatenar la foto'
+    if _nombre=='' or _telefono=='' or _pelicula=='' or _estado=='' or _foto=='':
+        flash('Recuerda llenar los datos de los campos')
+        return redirect(url_for('create'))
+
+    #concatenar la foto
     now = datetime.now()
     tiempo = now.strftime("%Y%H%M%S")
 
@@ -128,7 +139,7 @@ def storage():
     cursor.execute(sql,datos)
     conn.commit()
 
-    return render_template('peliculas/index.html')
+    return redirect('/')
 
 
 
